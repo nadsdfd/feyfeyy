@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>💌 For My Lovey 💌</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #ffe6f2;
+      text-align: center;
+      padding: 20px;
+    }
+    .container, .card {
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      margin: 20px auto;
+      max-width: 500px;
+    }
+    h2 { color: #d63384; }
+    button {
+      background: #d63384;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    button:hover { background: #a61e5c; }
+    audio { width: 100%; margin-top: 10px; }
+  </style>
+</head>
+<body>
+
+  <!-- Password Section -->
+  <div class="container" id="passwordSection">
+    <h2>🔒 Protected Page</h2>
+    <label for="secret">Enter the secret code</label><br><br>
+    <input type="password" id="secret" placeholder="Enter password...">
+    <button onclick="checkPassword()">Open</button>
+  </div>
+
+  <!-- Letter Section -->
+  <section id="letter" style="display: none;">
+    <div class="card">
+      <h2>💌 Hi Lovey 💌</h2>
+      <p>
+        Hi lovey, I know lately it’s been hard for both of us pero u still choose me always :<  
+        Thank you for never giving up on us kahit na may mga times na parang ang bigat at ang hirap.  
+        I know I’m not perfect and I make mistakes, but you still choose to stay, to understand, and to love me.  
+        That means so much to me more than I can ever put into words.
+      </p>
+      <p>
+        Ikaw yung safe place ko, the one I want to run to no matter what happens.  
+        Kahit anong hirap, kahit ilang tampuhan, ikaw at ikaw pa rin yung pipiliin ko.  
+        I promise to love you through the hard days, celebrate with you on the good days,  
+        and hold on to you every single day in between.
+      </p>
+      <p>
+        Mahal na mahal kita, always and forever. 💕
+      </p>
+    </div>
+  </section>
+
+  <!-- Music Section -->
+  <section id="music" style="display: none;">
+    <div class="card">
+      <h2>🎶 Our Songs 🎶</h2>
+      <p>Playlist</p>
+      <audio id="audioPlayer" controls></audio>
+      <p id="nowPlaying"></p>
+    </div>
+  </section>
+
+  <script>
+    // Playlist (update path if files are inside "songs" folder)
+    const songs = [
+      { src: "songs/pag-ibig-ikaw-at-ako.mp3", title: "Pag-ibig Ikaw at Ako — Earl Agustin" },
+      { src: "songs/Eliza Maturan - Museo Lyrics.mp3", title: "Museo — Eliza Maturan" },
+      { src: "songs/Kusapiling - Anthony Menesses (Lyrics).mp3", title: "Kusapiling — Anthony Menesses" },
+      { src: "songs/IV OF SPADES - Aura (Lyrics).mp3", title: "Aura — IV OF SPADES" }
+    ];
+
+    let currentSong = 0;
+    const audioPlayer = document.getElementById("audioPlayer");
+    const nowPlaying = document.getElementById("nowPlaying");
+
+    function loadSong(index) {
+      audioPlayer.src = songs[index].src;
+      nowPlaying.textContent = "Now Playing: " + songs[index].title;
+      audioPlayer.play();
+    }
+
+    audioPlayer.addEventListener("ended", () => {
+      currentSong = (currentSong + 1) % songs.length;
+      loadSong(currentSong);
+    });
+
+    // Password check
+    function checkPassword() {
+      const input = document.getElementById("secret").value;
+      if (input === "luvleyfey") {
+        document.getElementById("passwordSection").style.display = "none";
+        document.getElementById("letter").style.display = "block";
+        document.getElementById("music").style.display = "block";
+        loadSong(currentSong); // 🎶 start music after unlock
+      } else {
+        alert("Wrong password!");
+      }
+    }
+  </script>
+
+</body>
+</html>
